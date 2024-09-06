@@ -30,20 +30,25 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  String str = '';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Row(children: const[
           Icon(Icons.create),
-          Text("初めてのタイトル"),
+          Text("問題2"),
         ]),
       ),
       body: Column(children: [
         const Text("HelloWorld"),
         const Text("ハローワールド"),
         TextButton(
-          onPressed: () => {print("ボタンが押されたよ")},
+          onPressed: () {
+            setState(() {
+              str = 'テキストボタンクリック！！';
+            });
+          },
           child: const Text("テキストボタン"),
         ),
         Row(
@@ -52,22 +57,34 @@ class _MyHomePageState extends State<MyHomePage> {
                 IconButton(
                   icon: const Icon(Icons.favorite, color: Colors.pink, size: 24.0,),
                   onPressed: () {
-                    Text("aaa");
+                    setState(() {
+                      str = 'favoriteクリック！！';
+                    });
                   },
                 ),
                 IconButton(
                   icon: const Icon(Icons.audiotrack, color: Colors.green, size: 30.0,),
-                  onPressed: () => {
-                    const Text("aaa")
+                  onPressed: () {
+                    setState(() {
+                      str = 'audiotrackボタンクリック！！';
+                    });
                   },
                 ),
                 IconButton(
                   icon: const Icon(Icons.beach_access, color: Colors.blue, size: 36.0,),
-                  onPressed: () => {
-                    const Text("aaa")
+                  onPressed: () {
+                    setState(() {
+                      str = 'beach_accessボタンクリック！！';
+                    });
                   },
                 ),
               ]),
+            Center(
+              child: Text(
+                str,
+                style: const TextStyle(fontSize: 30, color: Colors.red),
+              )
+            ),
       ]),
       floatingActionButton: FloatingActionButton(
           onPressed: () => {print("押したね？")}, child: const Icon(Icons.timer)),
