@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
+  const MyHomePage({Key? key, required this.title}) : super(key: key);
 
   final String title;
 
@@ -30,18 +30,30 @@ class MyHomePage extends StatefulWidget {
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
+// class MyHomePage extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(
+//         title: Text("StatelesPage"),
+//       ),
+//       body: Text("書き換えしないページ")
+//     );
+//   }
+// }
+
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
-  String _type = "偶数";
+  // String _type = "偶数";
 
   void _incrementCounter() {
     setState(() {
       _counter++;
-      if (_counter % 2 == 0) {
-        _type = "偶数";
-      } else {
-        _type = "奇数";
-      }
+      // if (_counter % 2 == 0) {
+      //   _type = "偶数";
+      // } else {
+      //   _type = "奇数";
+      // }
     });
   }
 
@@ -62,8 +74,12 @@ class _MyHomePageState extends State<MyHomePage> {
               '$_counter',
               style: Theme.of(context).textTheme.headlineMedium,
             ),
+            if (_counter % 2 == 0)
+              const Text('偶数です',
+                  style: TextStyle(fontSize: 20, color: Colors.red))
           ],
         ),
+        // child: Icon(FontAwesomeIcons.gift, color: Colors.teal)
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: _incrementCounter,
