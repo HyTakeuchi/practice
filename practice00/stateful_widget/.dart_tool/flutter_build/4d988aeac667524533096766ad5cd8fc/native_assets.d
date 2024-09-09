@@ -1,0 +1,1 @@
+ C:\\work\\Flutter\\practice00\\stateful_widget\\.dart_tool\\flutter_build\\4d988aeac667524533096766ad5cd8fc\\native_assets.yaml: 
