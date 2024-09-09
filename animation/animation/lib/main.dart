@@ -96,7 +96,20 @@ class _MyHomePageState extends State<MyHomePage> {
                 child: SizedBox(
                     width: 50,
                     height: 50,
-                    child: Container(color: Colors.green)))
+                    child: Container(color: Colors.green))),
+            AnimatedContainer(
+              duration: const Duration(seconds: 3),
+              width: _flag ? 100 : 50,
+              height: _flag ? 50 : 100,
+              padding: _flag ? const EdgeInsets.all(0) : const EdgeInsets.all(30),
+              margin: _flag ? const EdgeInsets.all(0) : const EdgeInsets.all(30),
+              transform: _flag ? Matrix4.skewX(0.0) : Matrix4.skewX(0.3),
+              color: _flag ? Colors.blue : Colors.grey),
+            AnimatedSwitcher(
+              duration: const Duration(seconds: 3),
+              child: _flag
+                  ? const Text("なにもない")
+                  : const Icon(Icons.favorite, color: Colors.pink))
           ],
         ),
       ),
