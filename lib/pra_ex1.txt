@@ -57,7 +57,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       _txchange();
                     },
                     decoration: InputDecoration(
-                      labelText: '何か入力する',
+                      labelText: '入力',
                       border: OutlineInputBorder(),
                     ),
                   ),
