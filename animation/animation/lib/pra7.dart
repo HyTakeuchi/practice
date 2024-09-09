@@ -74,40 +74,35 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-	          // AnimatedOpacity : Textの透明度を「0.1と1.0」で切り替え
             AnimatedOpacity(
                 opacity: _flag ? 0.1 : 1.0,
                 duration: const Duration(seconds: 3),
                 child: Text(
                   "福岡情報校",
-                  style: Theme.of(context).textTheme.headlineMedium,
+                  style: TextStyle(
+                    fontStyle: FontStyle.italic,
+                    fontSize: 40,
+                    color: Colors.blue,
+                  ),
+                  // style: Theme.of(context).textTheme.headlineMedium,
                 )),
-            AnimatedSize(
-                duration: const Duration(seconds: 3),
-                child: SizedBox(
-                    width: _flag ? 50 : 200,
-                    height: _flag ? 50 : 200,
-                    child: Container(color: Colors.purple))),
             AnimatedAlign(
                 duration: const Duration(seconds: 3),
                 alignment: _flag ? Alignment.topLeft : Alignment.bottomRight,
-                child: SizedBox(
-                    width: 50,
-                    height: 50,
-                    child: Container(color: Colors.green))),
-            AnimatedContainer(
-              duration: const Duration(seconds: 3),
-              width: _flag ? 100 : 50,
-              height: _flag ? 50 : 100,
-              padding: _flag ? const EdgeInsets.all(0) : const EdgeInsets.all(30),
-              margin: _flag ? const EdgeInsets.all(0) : const EdgeInsets.all(30),
-              transform: _flag ? Matrix4.skewX(0.0) : Matrix4.skewX(0.3),
-              color: _flag ? Colors.blue : Colors.grey),
-            AnimatedSwitcher(
-              duration: const Duration(seconds: 3),
-              child: _flag
-                  ? const Text("なにもない")
-                  : const Icon(Icons.favorite, color: Colors.pink))
+                child: Image.asset('images/o-hara.png'),),
+            // AnimatedContainer(
+            //   duration: const Duration(seconds: 3),
+            //   width: _flag ? 100 : 50,
+            //   height: _flag ? 50 : 100,
+            //   padding: _flag ? const EdgeInsets.all(0) : const EdgeInsets.all(30),
+            //   margin: _flag ? const EdgeInsets.all(0) : const EdgeInsets.all(30),
+            //   transform: _flag ? Matrix4.skewX(0.0) : Matrix4.skewX(0.3),
+            //   color: _flag ? Colors.blue : Colors.grey),
+            // AnimatedSwitcher(
+            //   duration: const Duration(seconds: 3),
+            //   child: _flag
+            //       ? const Text("なにもない")
+            //       : const Icon(Icons.favorite, color: Colors.pink))
           ],
         ),
       ),
