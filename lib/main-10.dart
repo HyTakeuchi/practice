@@ -60,6 +60,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
   final Tween<double> _tweenDouble = Tween(begin: 0.0, end: 200.0);
   late Animation<Color?> _animationColor; 
   final ColorTween _tweenColor = ColorTween(begin: Colors.green, end: Colors.blue);
+  final Duration animDuration = const Duration(milliseconds: 2000);
 
   // 再生
   _forward() async {
@@ -82,23 +83,39 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
     });
   }
 
-  // 生成
-  @override
-  void initState() {
-    super.initState();
-    _animationController = AnimationController(vsync: this, duration: const Duration(seconds: 3));
+  // // 生成
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   // _animationController = AnimationController(vsync: this, duration: const Duration(seconds: 3));
+
+  //   _animationController = AnimationController(value: 0.0, vsync: this, duration: animDuration,);
+
     // TweenとAnimationControllerからAnimationを作る(サイズ)
-    _animationDouble = _tweenDouble.animate(_animationController);
-    _animationDouble.addListener(() {
-      setState(() {});
-    });
-    // TweenとAnimationControllerからAnimationを作る(色)
-    _animationColor = _tweenColor.animate(_animationController);
-    _animationColor.addListener(() {
-      setState(() {});
-    });
-  }
-  
+    // _animationDouble = _tweenDouble.animate(_animationController);
+    // _animationDouble.addListener(() {
+    //   setState(() {});
+    // });
+  //   // TweenとAnimationControllerからAnimationを作る(色)
+  //   _animationColor = _tweenColor.animate(_animationController);
+  //   _animationColor.addListener(() {
+  //     setState(() {});
+  //   });
+  // }
+
+    @override
+    void initState() {
+      super.initState();
+      _animationController =
+          AnimationController(duration: const Duration(seconds: 2), vsync: this);
+      _animationDouble = Tween<double>(begin: 0, end: 300).animate(_animationController)
+        ..addListener(() {
+          setState(() {
+            // The state that has changed here is the animation object’s value.
+          });
+        });
+    }
+    
   // 破棄
   @override
   void dispose() {
@@ -116,17 +133,14 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            // Text("AnimationController:${_animationController.value}"),
-            // Text("AnimationDouble:${_animationDouble.value}"),
-            // Text("AnimationColor:${_animationColor.value}"),
             SizeTransition(
               sizeFactor: _animationController,
               child: Center(
-                // child: SizedBox(
-                // width: _animationDouble.value,
-                // height: _animationDouble.value,
-                // child: Container(color: _animationColor.value))),
-                child: Image.asset('images/o-hara2.png')),
+                child: Container(
+                width: _animationDouble.value,
+                height: _animationDouble.value,
+                // child: const FlutterLogo())),
+                child: Image.asset('images/o-hara.png'))),
               ),
           ],
         ),
