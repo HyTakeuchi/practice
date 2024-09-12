@@ -164,13 +164,13 @@
       "languageVersion": "3.3"
     },
     {
-      "name": "helloworld",
+      "name": "practice0",
       "rootUri": "../",
       "packageUri": "lib/",
       "languageVersion": "3.5"
     }
   ],
-  "generated": "2024-09-10T05:12:19.241825Z",
+  "generated": "2024-09-12T00:25:30.277786Z",
   "generator": "pub",
   "generatorVersion": "3.5.1",
   "flutterRoot": "file:///C:/src/flutter",

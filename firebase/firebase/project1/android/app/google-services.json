@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "251723562096",
+    "project_id": "fic-takeuchi-project1",
+    "storage_bucket": "fic-takeuchi-project1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:251723562096:android:e2cdc5d210a94aa17048b5",
+        "android_client_info": {
+          "package_name": "com.takeuchi.project1"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyArToBMJoSGdfHIkFzmm4xT6ZLjYb8qYw4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
