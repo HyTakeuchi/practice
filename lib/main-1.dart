@@ -46,7 +46,7 @@ class _MyHomePageState extends State<MyHomePage> {
         TextButton(
           onPressed: () {
             setState(() {
-              str = 'テキストボタンクリック！！';
+              // str = 'テキストボタンクリック！！';
             });
           },
           child: const Text("テキストボタン"),
@@ -58,7 +58,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   icon: const Icon(Icons.favorite, color: Colors.pink, size: 24.0,),
                   onPressed: () {
                     setState(() {
-                      str = 'favoriteクリック！！';
+                      // str = 'favoriteクリック！！';
                     });
                   },
                 ),
@@ -66,7 +66,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   icon: const Icon(Icons.audiotrack, color: Colors.green, size: 30.0,),
                   onPressed: () {
                     setState(() {
-                      str = 'audiotrackボタンクリック！！';
+                      // str = 'audiotrackボタンクリック！！';
                     });
                   },
                 ),
@@ -74,7 +74,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   icon: const Icon(Icons.beach_access, color: Colors.blue, size: 36.0,),
                   onPressed: () {
                     setState(() {
-                      str = 'beach_accessボタンクリック！！';
+                      // str = 'beach_accessボタンクリック！！';
                     });
                   },
                 ),
