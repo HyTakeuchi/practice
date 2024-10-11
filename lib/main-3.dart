@@ -30,14 +30,17 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+
   String str = '';
+  Color textColor = Colors.black;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Row(children: const[
           Icon(Icons.create),
-          Text("問題1"),
+          Text("問題3"),
         ]),
       ),
       body: Column(children: [
@@ -46,10 +49,11 @@ class _MyHomePageState extends State<MyHomePage> {
         TextButton(
           onPressed: () {
             setState(() {
-              // str = 'テキストボタンクリック！！';
+              str = 'テキストボタンクリック！！';
+              textColor = Colors.brown;
             });
           },
-          child: const Text("テキストボタン"),
+          child: const Text("テキストボタン", style: TextStyle(fontSize: 30)),
         ),
         Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -58,7 +62,8 @@ class _MyHomePageState extends State<MyHomePage> {
                   icon: const Icon(Icons.favorite, color: Colors.pink, size: 24.0,),
                   onPressed: () {
                     setState(() {
-                      // str = 'favoriteクリック！！';
+                      str = 'favoriteクリック！！';
+                      textColor = Colors.pink;
                     });
                   },
                 ),
@@ -66,7 +71,8 @@ class _MyHomePageState extends State<MyHomePage> {
                   icon: const Icon(Icons.audiotrack, color: Colors.green, size: 30.0,),
                   onPressed: () {
                     setState(() {
-                      // str = 'audiotrackボタンクリック！！';
+                      str = 'audiotrackボタンクリック！！';
+                      textColor = Colors.green;
                     });
                   },
                 ),
@@ -74,7 +80,8 @@ class _MyHomePageState extends State<MyHomePage> {
                   icon: const Icon(Icons.beach_access, color: Colors.blue, size: 36.0,),
                   onPressed: () {
                     setState(() {
-                      // str = 'beach_accessボタンクリック！！';
+                      str = 'beach_accessボタンクリック！！';
+                      textColor = Colors.blue;
                     });
                   },
                 ),
@@ -82,7 +89,7 @@ class _MyHomePageState extends State<MyHomePage> {
             Center(
               child: Text(
                 str,
-                style: const TextStyle(fontSize: 30, color: Colors.red),
+                style: TextStyle(fontSize: 30, color: textColor),
               )
             ),
       ]),

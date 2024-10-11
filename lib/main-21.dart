@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
+import 'main-21-1.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -39,6 +40,7 @@ class _MyHomePageState extends State<MyHomePage> {
   // 入力したメールアドレス・パスワード
   String _email = '';
   String _password = '';
+  String userInfo = '';
 
   @override
   Widget build(BuildContext context) {
@@ -79,7 +81,8 @@ class _MyHomePageState extends State<MyHomePage> {
                                 email: _email, password: _password))
                         .user;
                     if (user != null)
-                      print("ユーザ登録しました ${user.email} , ${user.uid}");
+                      userInfo = "ユーザ登録しました ${user.email} , ${user.uid}";
+                      // Text("ユーザ登録しました ${user.email} , ${user.uid}");
                   } catch (e) {
                     print(e);
                   }
@@ -97,24 +100,19 @@ class _MyHomePageState extends State<MyHomePage> {
                         .user;
                     if (user != null)
                       print("ログインしました　${user.email} , ${user.uid}");
+                      // Navigatorを使って新しいページ（TestPage2）に遷移
+                      Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+                        // TestPage2のウィジェットを表示
+                        return Main21_1();
+                      }));           
                   } catch (e) {
                     print(e);
                   }
                 },
               ),
-              // 5行目 パスワードリセット登録ボタン
-              ElevatedButton(
-                  child: const Text('パスワードリセット'),
-                  onPressed: () async {
-                    try {
-                      // FirebaseAuthのパスワードリセットメソッド呼び出し
-                      await FirebaseAuth.instance
-                          .sendPasswordResetEmail(email: _email);
-                      print("パスワードリセット用のメールを送信しました");
-                    } catch (e) {
-                      print(e);
-                    }
-                  }),
+            Center(
+              child: Text(userInfo),
+            )
             ],
           ),
         ),
