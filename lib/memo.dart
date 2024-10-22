@@ -1,172 +1,166 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:table_calendar/table_calendar.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'firebase_options.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 
-Future<void> main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
-  runApp(const MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
+class TestPage3 extends StatefulWidget {
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
-      home: const CalendarPage()
-    );
-  }
+  _TestPage3State createState() => _TestPage3State();
 }
 
-class CalendarPage extends StatefulWidget {
-  const CalendarPage({Key? key}) : super(key: key);
 
-  @override
-  State<CalendarPage> createState() => _CalendarPageState();
-}
+class _TestPage3State extends State<TestPage3> {
+  TextEditingController searchController = TextEditingController(); // 入力管理用のコントローラー
+  String? _selectedOption = '';
 
-class _CalendarPageState extends State<CalendarPage> {
-  final CalendarFormat _calendarFormat = CalendarFormat.month;
-  DateTime _focusedDay = DateTime.now();
-  DateTime? _selectedDay;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: false, // キーボードが出てきても画面が崩れないようにする
-      appBar: AppBar(
-        title: const Text('Calendar'),
-        actions: [
-          IconButton(
-            onPressed: () async {
-              try {
-                // ダイアログを出して入力する
-                final result = await showDialog<String>(
-                  context: context,
-                  builder: (context) {
-                    final TextEditingController controller =
-                        TextEditingController();
-                    return AlertDialog(
-                      title: const Text('メモを入力してください'),
-                      content: TextField(
-                        controller: controller,
-                      ),
-                      actions: [
-                        TextButton(
-                          onPressed: () {
-                            Navigator.pop(context);
-                          },
-                          child: const Text('キャンセル'),
-                        ),
-                        TextButton(
-                          onPressed: () async {
-                            await FirebaseFirestore.instance
-                                .collection('calendar')
-                                .add({
-                              'date': Timestamp.fromDate(_selectedDay!),
-                              'memo': controller.text,
-                            });
-                            if (mounted) {
-                              Navigator.pop(context);
-                            }
-                          },
-                          child: const Text('OK'),
-                        ),
-                      ],
+        appBar: AppBar(
+          title: const Text("条件検索表示"),
+        ),
+        body: Column(
+          children: [
+            Center(
+              child: Text("書籍情報入力", style: TextStyle(fontSize: 30), textAlign: TextAlign.center,),
+            ),
+            // ラジオボタン
+            RadioListTile<String>(
+              title: Text('書名'),
+              value: '書名',
+              groupValue: _selectedOption,
+              onChanged: (String? value) {
+                setState(() {
+                  _selectedOption = value;
+                });
+              },
+            ),
+            RadioListTile<String>(
+              title: Text('著者名'),
+              value: '著者名',
+              groupValue: _selectedOption,
+              onChanged: (String? value) {
+                setState(() {
+                  _selectedOption = value;
+                });
+              },
+            ),
+            RadioListTile<String>(
+              title: Text('出版社'),
+              value: '出版社',
+              groupValue: _selectedOption,
+              onChanged: (String? value) {
+                setState(() {
+                  _selectedOption = value;
+                });
+              },
+            ),
+            RadioListTile<String>(
+              title: Text('価格'),
+              value: '価格',
+              groupValue: _selectedOption,
+              onChanged: (String? value) {
+                setState(() {
+                  _selectedOption = value;
+                });
+              },
+            ),
+            RadioListTile<String>(
+              title: Text('ページ数'),
+              value: 'ページ数',
+              groupValue: _selectedOption,
+              onChanged: (String? value) {
+                setState(() {
+                  _selectedOption = value;
+                });
+              },
+            ),
+            RadioListTile<String>(
+              title: Text('分野'),
+              value: '分野',
+              groupValue: _selectedOption,
+              onChanged: (String? value) {
+                setState(() {
+                  _selectedOption = value;
+                });
+              },
+            ),
+            TextField(                
+                controller: searchController,
+                decoration: InputDecoration(
+                  icon: Icon(Icons.search),
+                  labelText: '検索語'
+                ),
+            ),
+            SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: () async {
+                try {
+                  if (searchController.text.isEmpty) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text('検索語を入力してください。')),
                     );
-                  },
-                );
-              } catch (e) {
-                print("Error adding document: $e");
-              }
-            },
-            icon: const Icon(Icons.add),
-          ),
-        ],
-      ),
-      body: Column(
-        children: [
-          TableCalendar(
-            focusedDay: _focusedDay, // どの日付を選択したか
-            firstDay: DateTime(1990), // 最初に利用可能な日付
-            lastDay: DateTime(2050), // 最後に利用可能な日付
-            calendarFormat: _calendarFormat,
-            // カレンダーウィジェットに以下のコードを追加すると、ユーザーのタップに反応し、
-            // タップされた日を選択されたようにマークします
-            selectedDayPredicate: (day) =>
-                isSameDay(_selectedDay, day), // 選択された日付をマークする
-            onDaySelected: (selectedDay, focusedDay) {
-              // 日付が選択されたときに呼び出される
-              _focusedDay = focusedDay;
-              _selectedDay = selectedDay;
-              setState(() {});
-            },
-          ),
-          // StreamBuilderを使って、Firestoreのcalendarコレクションのデータを取得する
-          StreamBuilder<QuerySnapshot>(
-            stream:
-                FirebaseFirestore.instance.collection('calendar').snapshots(),
-            builder: (context, snapshot) {
-              if (snapshot.hasData) {
-                // calendarコレクションのデータを取得する
-                final List<QueryDocumentSnapshot> documents =
-                    snapshot.data!.docs;
+                    return;
+                  }
 
-                // 選択された日付と一致するドキュメントだけをフィルタリング
-                final List<QueryDocumentSnapshot> filteredDocuments =
-                    documents.where((doc) {
-                  final date = (doc['date'] as Timestamp).toDate();
-                  return isSameDay(_selectedDay, date);
-                }).toList();
+                  String select = _selectedOption!;
 
-                // calendarコレクションのデータを日付順に並び替える
-                filteredDocuments
-                    .sort((a, b) => a['date'].compareTo(b['date']));
+                  if (select == '価格' || select == 'ページ数') {
+                    try {
+                      int intText = int.parse(searchController.text);
+                      Query query = FirebaseFirestore.instance
+                        .collection('book')
+                        .where(select, isEqualTo: intText);
 
-                return Expanded(
-                  child: ListView.builder(
-                    itemCount: filteredDocuments.length,
-                    itemBuilder: (context, index) {
-                      // calendarコレクションのデータを取得する
-                      final document = filteredDocuments[index];
-                      // calendarコレクションのデータをDateTime型に変換する
-                      final date = (document['date'] as Timestamp).toDate();
-                      // calendarコレクションのデータを表示する
-                      return ListTile(
-                        trailing: IconButton(
-                          onPressed: () async {
-                            await FirebaseFirestore.instance
-                                .collection('calendar')
-                                .doc(document.id)
-                                .delete();
-                          },
-                          icon: const Icon(Icons.delete),
-                        ),
-                        title: Text(document['memo']),
-                        subtitle:
-                            Text('${date.year}/${date.month}/${date.day}'),
+                      StreamBuilder<QuerySnapshot>(
+                        stream: query.snapshots(),
+                        builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                          if (snapshot.hasError) {
+                            return Text('Something went wrong');
+                          }
+
+                          if (snapshot.connectionState == ConnectionState.waiting) {
+                            return CircularProgressIndicator();
+                          }
+
+                          // 検索結果の表示
+                          return ListView(
+                            children: snapshot.data!.docs.map((DocumentSnapshot document) {
+                              Map<String, dynamic> data = document.data()! as Map<String, dynamic>;
+                              return ListTile(
+                                title: Text("ドキュメント名: ${data['document']}|書名: ${data['title']}|著者名: ${data['name']}|出版社: ${data['publisher']}|価格: ${data['price']}円|ページ数: ${data['page']}ページ|分野: ${data['calc']}",));
+                            }).toList()
+                          );
+                        },
                       );
-                    },
-                  ),
-                );
-              }
-              return const Center(child: CircularProgressIndicator());
-            },
-          ),
-        ],
-      ),
+
+                    } catch (e) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(content: Text('価格またはページ数は整数でなければなりません。')),
+                      );
+                      return;
+                    }
+                  } else {
+                    await FirebaseFirestore.instance
+                        .collection('book')
+                        .where(select, isEqualTo: searchController)
+                        .get();
+                  }
+
+                  searchController.clear();
+                  setState(() {
+                    _selectedOption = '';
+                  });
+                } catch (e) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text('エラーが発生しました: $e')),
+                  );
+                }
+              },
+              child: Text('条件取得実行'),
+            )
+          ]
+        ),
     );
   }
 }
