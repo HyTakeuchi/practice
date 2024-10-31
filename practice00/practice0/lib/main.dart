@@ -1,6 +1,17 @@
 import 'package:flutter/material.dart';
+import 'flutter1.dart';
+import 'flutter2.dart';
+import 'flutter3.dart';
+import 'flutter4.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 
-void main() {
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const MyApp());
 }
 
@@ -30,46 +41,49 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  // ページの切り替えを制御するためのPageControllerを定義
+  late PageController _pageController;
+  // 現在選択されているページのインデックスを保持
+  int _selectedIndex = 0;
+
+  // ページの配列
+  final _pages = [
+    TestPage1(), // Index0
+    TestPage2(),
+    TestPage3(),
+    TestPage4(),
+  ];
+
+  // 生成
+  @override
+  void initState() {
+    super.initState();
+    _pageController = PageController(initialPage: _selectedIndex);
+  }
+
+  // 破棄
+  @override
+  void dispose() {
+    super.dispose();
+    _pageController.dispose();
+  }
+
+  // ページ変更時に呼び出すメソッド
+  void _onPageChanged(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Row(children: const[
-          Icon(Icons.create),
-          Text("初めてのタイトル"),
-        ]),
-      ),
-      body: Column(children: [
-        const Text("HelloWorld"),
-        const Text("ハローワールド"),
-        TextButton(
-          onPressed: () => {print("ボタンが押されたよ")},
-          child: const Text("テキストボタン"),
-        ),
-        Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: const [
-                Icon(
-                  Icons.favorite,
-                  color: Colors.pink,
-                  size: 24.0,
-                ),
-                Icon(
-                  Icons.audiotrack,
-                  color: Colors.green,
-                  size: 30.0,
-                ),
-                Icon(
-                  Icons.beach_access,
-                  color: Colors.blue,
-                  size: 36.0,
-                ),
-              ]),
-      ]),
-      floatingActionButton: FloatingActionButton(
-          onPressed: () => {print("押したね？")}, child: const Icon(Icons.timer)),
-      drawer: const Drawer(child: Center(child: Text("Drawer"))),
-      endDrawer: const Drawer(child: Center(child: Text("EndDrawer"))),
-    );
+        // 複数のページをスワイプして切り替え
+        body: PageView(
+            // PageControllerを使ってページを制御
+            controller: _pageController,
+            // ページが変わったときに_onPageChangedを呼び出す
+            onPageChanged: _onPageChanged,
+            children: _pages));
   }
 }

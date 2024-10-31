@@ -1,1 +1,31 @@
-{"flutter":{"platforms":{"android":{"default":{"projectId":"fic-takeuchi-project","appId":"1:401818502669:android:993c4d7440e639aa3bb744","fileOutput":"android/app/google-services.json"}},"dart":{"lib/firebase_options.dart":{"projectId":"fic-takeuchi-project","configurations":{"android":"1:401818502669:android:993c4d7440e639aa3bb744","web":"1:401818502669:web:f92d92109679877c3bb744","windows":"1:401818502669:web:9667b045568830343bb744"}}}}}}
+{
+  "flutter": {
+    "platforms": {
+      "android": {
+        "default": {
+          "projectId": "fic-takeuchi-project",
+          "appId": "1:401818502669:android:9902c8f1272021713bb744",
+          "fileOutput": "android/app/google-services.json"
+        }
+      },
+      "dart": {
+        "lib/firebase_options.dart": {
+          "projectId": "fic-takeuchi-project",
+          "configurations": {
+            "android": "1:401818502669:android:9902c8f1272021713bb744",
+            "web": "1:401818502669:web:e57dbf87279f628d3bb744",
+            "windows": "1:401818502669:web:71db19d8868024de3bb744"
+          }
+        }
+      }
+    }
+  },
+  "hosting": {
+    "public": "build/web",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ]
+  }
+}

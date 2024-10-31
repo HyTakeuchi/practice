@@ -42,17 +42,17 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions web = FirebaseOptions(
     apiKey: 'AIzaSyATiSz9SiBWCsB6TNbVGZX1I25Q9V_GTfc',
-    appId: '1:401818502669:web:f92d92109679877c3bb744',
+    appId: '1:401818502669:web:e57dbf87279f628d3bb744',
     messagingSenderId: '401818502669',
     projectId: 'fic-takeuchi-project',
     authDomain: 'fic-takeuchi-project.firebaseapp.com',
     storageBucket: 'fic-takeuchi-project.appspot.com',
-    measurementId: 'G-MSF4J1Y85N',
+    measurementId: 'G-KC57YYJQRZ',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyB0iNEEIix3YoFrIeq8Y5f3cLmVWz_5QNw',
-    appId: '1:401818502669:android:993c4d7440e639aa3bb744',
+    appId: '1:401818502669:android:9902c8f1272021713bb744',
     messagingSenderId: '401818502669',
     projectId: 'fic-takeuchi-project',
     storageBucket: 'fic-takeuchi-project.appspot.com',
@@ -78,12 +78,12 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions windows = FirebaseOptions(
     apiKey: 'AIzaSyATiSz9SiBWCsB6TNbVGZX1I25Q9V_GTfc',
-    appId: '1:401818502669:web:9667b045568830343bb744',
+    appId: '1:401818502669:web:71db19d8868024de3bb744',
     messagingSenderId: '401818502669',
     projectId: 'fic-takeuchi-project',
     authDomain: 'fic-takeuchi-project.firebaseapp.com',
     storageBucket: 'fic-takeuchi-project.appspot.com',
-    measurementId: 'G-CT9ZZNKGJ3',
+    measurementId: 'G-C5NEBCNYD4',
   );
 
 }

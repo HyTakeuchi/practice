@@ -37,7 +37,7 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Row(children: const[
           Icon(Icons.create),
-          Text("問題2"),
+          Text("問題1"),
         ]),
       ),
       body: Column(children: [
@@ -86,10 +86,6 @@ class _MyHomePageState extends State<MyHomePage> {
               )
             ),
       ]),
-      floatingActionButton: FloatingActionButton(
-          onPressed: () => {print("押したね？")}, child: const Icon(Icons.timer)),
-      drawer: const Drawer(child: Center(child: Text("Drawer"))),
-      endDrawer: const Drawer(child: Center(child: Text("EndDrawer"))),
     );
   }
 }
